@@ -5,7 +5,7 @@ import imaplib
 import email
 
 def get_email(host, user, sender):
-  '''using imaplib to connect to an imap server and fetch the qualified email: search the INBOX for the latest email from sender.
+    '''using imaplib to connect to an imap server and fetch the qualified email: search the INBOX for the latest email from sender.
     host : 'imap.126.com'
     user : ('username@example.com', 'password')
     sender : 'sender@example.com'
