@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-    name='email',
-    version='0.1.0',
+    name='simple_mailbox',
+    version='0.1.3',
     author='Jian, Gao',
     author_email='junglegao@gmail.com',
-    packages=['mailbox'],
+    packages=['smbox'],
     scripts=[],
-    url='http://pypi.python.org/pypi/TowelStuff/',
+    url='https://pypi.python.org/pypi/simple_mailbox/',
     license='LICENSE.txt',
     description='imap utils can be used to get the latest email from specified sender.',
-    long_description=open('README.md').read(),
+    long_description=open('README.txt').read(),
 )
