@@ -33,7 +33,6 @@ def get_first_text_block(email_message_instance):
         for part in email_message_instance.get_payload():
             if part.get_content_maintype() == 'text':
                 return part.get_payload()
-        return email_message_instance.get_payload()
     elif maintype == 'text':
-        pass
+        return email_message_instance.get_payload()
 
