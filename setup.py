@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='simple_mailbox',
-    version='0.1.3',
+    version='0.1.4',
     author='Jian, Gao',
     author_email='junglegao@gmail.com',
     packages=['smbox'],

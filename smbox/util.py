@@ -11,13 +11,7 @@ def get_email(host, user, sender):
     sender : 'sender@example.com'
     return : email_message
     '''
-    cnt = imaplib.IMAP4_SSL(host=host)
-    cnt.login(*user)
-    cnt.select("INBOX")
-    result, data = cnt.search(None, '(FROM "%s")' % sender)
-    ids = data[0]  # data is a list.
-    id_list = ids.split()  # ids is a space separated string
-    latest_email_id = id_list[-1]  # get the latest
+    cnt, latest_email_id = get_latest_email_id(host, sender, user)
     result, data = cnt.fetch(latest_email_id, "(RFC822)")  # fetch the email body (RFC822) for the given ID
     raw_email = data[0][1]  # here's the body, which is raw text of the whole email
     cnt.logout()
@@ -35,4 +29,32 @@ def get_first_text_block(email_message_instance):
                 return part.get_payload()
     elif maintype == 'text':
         return email_message_instance.get_payload()
+
+
+def get_latest_email_id(host, sender, user):
+    cnt = imaplib.IMAP4_SSL(host=host)
+    cnt.login(*user)
+    cnt.select("INBOX")
+    result, data = cnt.search(None, '(FROM "%s")' % sender)
+    ids = data[0]  # data is a list.
+    id_list = ids.split()  # ids is a space separated string
+    latest_email_id = id_list[-1]  # get the lates
+    return cnt, latest_email_id
+
+
+def delete_email_from_mail_box(host, user, sender):
+    cnt, latest_email_id = get_latest_email_id(host, sender, user)
+    cnt.store(latest_email_id, '+FLAGS', '\\Deleted')
+    cnt.expunge()
+    cnt.logout()
+
+if __name__ == '__main__':
+    host = 'imap.126.com'
+    user = ('gjstar@126.com', 'gj660510')
+    sender = 'ushernetwork@microstrategy.com'
+
+    email_msg = get_email(host=host, user=user, sender=sender)
+    print get_first_text_block(email_msg)
+    delete_email_from_mail_box(host=host, user=user, sender=sender)
+
 
